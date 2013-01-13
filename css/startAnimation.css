@@ -1,0 +1,231 @@
+#intro{
+
+	margin:0 auto;
+
+}
+
+ 
+#intro button,#intro strong , #intro  cite{
+
+	display: block;
+	margin: 0 auto;
+	
+
+}
+  @media all and (max-height: 640px){
+
+ 	#intro {
+
+ 		height: 500px;
+ 	}
+ 	#intro strong{
+
+	margin-bottom: 300px;
+	
+}
+
+ }
+
+ @media all and (max-height: 480px){
+
+#intro{
+
+	height: 380px;
+}
+#intro strong{
+
+	margin-bottom: 200px;
+	
+}
+
+ }
+ @media all and (max-height: 320px){
+
+#intro{
+
+	height: 280px;
+}
+#intro strong{
+
+	margin-bottom: 100px;
+	
+}
+
+
+ }
+
+ @media all and (min-height: 640px){
+
+ 	#intro {
+
+ 		height: 510px;
+ 	}
+ 	#intro strong{
+
+	margin-bottom: 320px;
+	
+}
+
+ }
+ 
+
+div#intro > * {
+
+	
+	text-align: center;
+
+
+}
+
+
+
+
+#intro h1 {
+
+	font-size: 3.5em;
+	
+
+	margin: 0 auto;
+	margin-bottom: 20px;
+	display: block;
+	
+	/*all animation props, after this i will reduce to animation:*/
+	-moz-animation-delay:1.5;
+	-webkit-animation-delay:1.5;
+	-moz-animation-timing-function: ease-in;
+	-webkit-animation-timing-function: ease-in;
+
+	-moz-animation-duration: 4s;
+-webkit-animation-duration: 4s;
+-moz-animation-name: grow;
+-webkit-animation-name: grow; 
+}
+
+@-webkit-keyframes	grow{
+
+
+from {
+	opacity: 0;
+	font-size: 0em;
+
+}
+to {
+
+	opacity: 1:
+	font-size: 3.5em;
+
+}
+
+
+}
+
+@-moz-keyframes	grow{
+
+from {
+	opacity: 0;
+	font-size: 0em;
+
+}
+to {
+
+	opacity: 1:
+	font-size:3.5em;
+	
+}
+
+
+}
+
+
+#intro  button  {
+	margin-bottom: 10px;
+	border-radius: 23px;
+
+	-moz-animation: borders 1.2s ease-in  infinite  ;
+-webkit-animation: borders 1.2s ease-in  infinite  ;
+
+}
+
+
+@-webkit-keyframes	borders{
+from {
+	
+	
+
+}
+
+to {
+
+	border-width: 1px;
+	
+
+}
+
+25%{
+
+	
+	border-top-right-radius: 33px;
+
+
+	
+}
+50%{
+
+	
+	border-top-left-radius: 33px;
+
+	
+}
+
+75%{
+
+	border-bottom-right-radius: 33px;
+	
+
+	
+}
+
+100%{
+
+	border-bottom-left-radius: 33px;
+	
+}
+
+
+
+}
+
+@-moz-keyframes	borders{
+25%{
+
+	
+	border-top-right-radius: 33px;
+
+
+	
+}
+50%{
+
+	
+	border-top-left-radius: 33px;
+
+	
+}
+
+75%{
+
+	border-bottom-right-radius: 33px;
+	
+
+	
+}
+
+100%{
+
+	border-bottom-left-radius: 33px;
+	
+}
+
+
+
+}

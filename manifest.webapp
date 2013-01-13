@@ -1,0 +1,32 @@
+{
+  "version": "0.1",
+  "name": "Snake",
+  "description": "Snake game",
+  "launch_path": "/",
+  "icons": {
+    "16": "/img/icons/mortar-16.png",
+    "48": "/img/icons/mortar-48.png",
+    "128": "/img/icons/mortar-128.png"
+  },
+  "developer": {
+    "name": "Dany Javier B",
+    "url": "http://danybau.com/demos/snake"
+  },
+  "installs_allowed_from": ["*"],
+  "appcache_path": "/cache.manifest",
+  "locales": {
+    "es": {
+      "description": "Juego de la Sepriente",
+      "developer": {
+        "url": "http://danybau.com/demos/snake"
+      }
+    },
+    "it": {
+      "description": "snake-Spiel",
+      "developer": {
+        "url": "http://danybau.com/demos/snake"
+      }
+    }
+  },
+  "default_locale": "en"
+}
