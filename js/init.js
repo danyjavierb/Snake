@@ -9,4 +9,4 @@ require.config({
     }
 });
 
-requirejs(["jquery","bootstrap","../install-button",'../app']);
+requirejs(["jquery","bootstrap",'../app']);

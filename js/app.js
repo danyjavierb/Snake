@@ -5,7 +5,7 @@
 define(function (require) {
     var cd = require("utils");
     var snake = require("./snake");
-
+    var ib= require("./install-button");
     $(function () {
 
 
