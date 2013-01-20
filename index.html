@@ -1,72 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
+<head>
 
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Snake Game:for Firefox OS</title>
-		<link rel="stylesheet" href="css/normalize.css" />
-		<link rel="stylesheet" href="css/themes/snake.bootstrap.min.css" />
-		<link rel="stylesheet" href="css/themes/bootstrap-responsive.css" />
-		<link rel="stylesheet" href="css/startAnimation.css" />
-		<link rel="stylesheet" href="css/app.css"/>
-		
-		
-	</head>
-	<body>
-	<div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Snake Game:for Firefox OS</title>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="css/install-button.css"/>
+    <link rel="stylesheet" href="css/themes/snake.bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/themes/bootstrap-responsive.css"/>
+    <link rel="stylesheet" href="css/startAnimation.css"/>
+    <link rel="stylesheet" href="css/app.css"/>
+
+
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
         <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="#">Ungry Snake</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact me</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">Ungry Snake</a>
+
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li>
+                        <a data-content="App created as demo for the firefoxAppsDays. by @danyjavierb "
+                           data-placement="bottom" rel="popover"
+                           href="#" data-original-title="About Snake">About</a>
+
+                    </li>
+                    <li><a data-content="Cooming soon "
+                           data-placement="bottom" rel="popover"
+                           href="#" data-original-title="Best Scores">Scores</a></li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
         </div>
-      </div>
     </div>
-
-    <div class="container">
-
-    	<div id="intro">
-      <h1>Ungry Snake</h1>
-      <strong>for Firefox OS.</strong>
-     
-   		
-       <button id="start" class="btn btn-large btn-success " type="button"> <i class="icon-cog"></i>play!</button>
-      <cite  title="twitter account"><a href="https://twitter.com/intent/follow?original_referer=https%3A%2F%2Ftwitter.com%2Fabout%2Fresources%2Fbuttons&screen_name=danyjavierb&source=followbutton&variant=2.0&original_referer=http://www.danybau.com/" target="_blank">&#64;danyjavierb</a></cite>
-      </div>
-
-      <div id="game"></div>
-      <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Modal header</h3>
-  </div>
-  <div class="modal-body">
-    <p>congratulation you got: <p id="finalScore"></p> Points</p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Main Window</button>
-    <button class="btn btn-primary">Try Again</button>
-  </div>
 </div>
-      
+
+<div class="container">
+
+    <div id="intro">
+        <h1>Ungry Snake</h1>
+        <strong>for Firefox OS.</strong>
+
+        <button id="install-btn" class="btn" >Install</button>
+        <button id="start" class="btn btn-large btn-success " type="button"><i class="icon-cog"></i>play!</button>
+        <cite title="twitter account"><a
+                href="https://twitter.com/intent/follow?original_referer=https%3A%2F%2Ftwitter.com%2Fabout%2Fresources%2Fbuttons&screen_name=danyjavierb&source=followbutton&variant=2.0&original_referer=http://www.danybau.com/"
+                target="_blank">&#64;danyjavierb</a></cite>
     </div>
-    <audio id="audioGame">
-  Your browser does not support the <code>audio</code> element.
-  <source src="sound/snake.ogg" type="audio/wav">
+
+    <div id="game"></div>
+
+    <div id="modalScore" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabelScore"
+         aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Game Over</h3>
+        </div>
+        <div class="modal-body">
+            <p>congratulation you got:
+
+            <span id="finalScore">  </span>
+                Points</p>
+        </div>
+        <div class="modal-footer">
+            <button id="btnMenu" class="btn" data-dismiss="modal" aria-hidden="true">Menu</button>
+            <button id="btnAgain" class="btn btn-primary" >Try Again</button>
+        </div>
+    </div>
+
+</div>
+<audio id="audioGame">
+    Your browser does not support the <code>audio</code> element.
+    <source src="sound/snake.ogg" type="audio/wav">
 </audio>
 
 
-		<script type="text/javascript" data-main="js/init.js" src="js/lib/require.js"></script>
-	</body>
+<script type="text/javascript" data-main="js/init.js" src="js/lib/require.js"></script>
+</body>
 </html>

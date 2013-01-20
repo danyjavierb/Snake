@@ -1,7 +1,7 @@
 
 define(function(require) {
     var install = require('install');
-
+    
     function update() {
         var btn = document.getElementById('install-btn');
         if(install.state == 'uninstalled') {

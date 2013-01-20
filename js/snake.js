@@ -13,9 +13,23 @@ Use this module for construct your own versions of the classic snake game,
 define(["jquery"], function($) {
 
 	(function() {
-		var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-		window.requestAnimationFrame = requestAnimationFrame;
+		var requestAnimationFrame = window.requestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.msRequestAnimationFrame;
+
+        var cancelRequestAnimationFrame  = window.cancelRequestAnimationFrame        ||
+            window.webkitCancelRequestAnimationFrame    ||
+            window.mozCancelRequestAnimationFrame       ||
+            window.oCancelRequestAnimationFrame     ||
+            window.msCancelRequestAnimationFrame        ||
+        clearTimeout;
+
+        window.requestAnimationFrame = requestAnimationFrame;
+        window.cancelRequestAnimationFrame =cancelRequestAnimationFrame;
 	})();
+
+
 
 
 	var width;
@@ -31,7 +45,12 @@ define(["jquery"], function($) {
 	//direction
 	var dir;
 
-	var now;
+    //callback when the snake collide
+    var onLost;
+
+	var start = Date.now();
+    var levelSpeed=100;
+
 	/*the user input should be in another module, but i will put this here
 	for simplicity
 	*/
@@ -50,8 +69,7 @@ define(["jquery"], function($) {
 	//every snake´s fragment is a square with width of 10px
 	var snakeFragment = 10;
 
-	//callback when the snake collide
-	var onLost;
+
 
 	function init(canvas,callback) {
 
@@ -67,7 +85,8 @@ define(["jquery"], function($) {
   		ctx.canvas.width  = $(canvas).innerWidth();
   		ctx.canvas.height = $(canvas).innerHeight();
 
-  		
+        ctx.fillStyle = "#0F8790";
+        ctx.fillRect(0,0, width, height);
 
 	
 		
@@ -77,8 +96,9 @@ define(["jquery"], function($) {
 		score = 0;
 		startSnake();
 		placeFood();
-		onLost=callback;
-	
+
+		onLost= callback;
+        console.log(callback,onLost);
 		 displayScore();
 		animate();
 
@@ -93,7 +113,7 @@ define(["jquery"], function($) {
 		{
 			//This will create a horizontal snake starting from the top left
 
-			snake.push({x: i, y:0});
+			snake.push({x: i, y:1});
 			
 		}
 	}
@@ -108,10 +128,11 @@ define(["jquery"], function($) {
 
 	}
 
+    //quick solution to cancel the requestanimationframe
 
 	function animate() {
 		
-		requestAnimationFrame(animate);
+		window.request = requestAnimationFrame(animate);
 
 		draw();
 
@@ -119,69 +140,81 @@ define(["jquery"], function($) {
 	}
 
 	function draw() {
-		
-		//clear canvas every frame
-		ctx.fillStyle = "#0F8790";
-		ctx.fillRect(0,0, width, height);
-
-		//snake logic
-		//cheking snake head, remember, is only a reference
-		var headX = snake[0].x;
-		var headY = snake[0].y;
-		//increment position depending direction
-		switch(dir) {
-		case("right"):
-			headX++;
-			break;
-		case("left"):
-			headX--;
-			break;
-		case("up"):
-			headY--;
-			break;
-		case("down"):
-			headY++;
-			break;
-
-		}
-
-		//check collision with wall and with itself
-		if(checkCollision(headX, headY, snake)) {
-
-		
-			onLost(score);
-			
-
-		}
-		//eat!
-		if(headX == food.x && headY == food.y) {
-
-			//put the new fragment as the  snake´s array
-			var newFragment = {
-				x: headX,
-				y: headY
-			};
-			score++;
-			placeFood();
-			displayScore();
 
 
-		} else {
 
-			var newFragment = snake.pop();
-			newFragment.x = headX;
-			newFragment.y = headY;
+        if(Date.now() -start >levelSpeed){
+            //clear canvas every frame
+            ctx.fillStyle = "#0F8790";
+            ctx.fillRect(0,0, width, height);
 
-		}
+            //snake logic
+            //cheking snake head, remember, is only a reference
+            var headX = snake[0].x;
+            var headY = snake[0].y;
+            //increment position depending direction
+            switch(dir) {
+                case("right"):
+                    headX++;
+                    break;
+                case("left"):
+                    headX--;
+                    break;
+                case("up"):
+                    headY--;
+                    break;
+                case("down"):
+                    headY++;
+                    break;
 
-		snake.unshift(newFragment);
-	
+            }
+
+            //check collision with wall and with itself
+            if(checkCollision(headX, headY, snake)) {
+                /*by default the game finalizes here by you can create something new
+                using lifes of whatever crazy stuff that you want*/
+
+                cancelRequestAnimationFrame(window.request);
+
+                onLost(score);
+
+
+
+            }
+            //eat!
+            if(headX == food.x && headY == food.y) {
+                //small vibration, read more at https://wiki.mozilla.org/WebAPI
+                window.navigator.vibrate(100);
+                //put the new fragment as the  snake´s array
+                var newFragment = {
+                    x: headX,
+                    y: headY
+                };
+                score++;
+                placeFood();
+                displayScore();
+
+
+            } else {
+
+                var newFragment = snake.pop();
+                newFragment.x = headX;
+                newFragment.y = headY;
+
+            }
+
+            snake.unshift(newFragment);
 		for(var j = 0; j < snake.length; j++) {
 			var part = snake[j];
 			
 			drawFragment(part);
 
 		}
+            start =Date.now();
+            //create your own speed levels.
+
+        }
+
 		//draw food 
 		drawFragment(food);
 		
@@ -211,7 +244,7 @@ function checkCollision(headX, headY, array) {
 	}
 	//snake itself collision
 
-	for (var i=0;i<snake.lenght;i++){
+	for (var i=0;i<snake.length;i++){
 
 		if(array[i].x==headX && array[i].y==headY){
 			collision= true;
@@ -225,7 +258,7 @@ function checkCollision(headX, headY, array) {
 function displayScore(){
 	//add styles to #score in your css
 	$("#score").remove();
-	var scoreElement = $("<div id=score>Score"+score+"</div>");
+	var scoreElement = $("<div id=score>Score <span class='text-warning'> "+score+"</span></div>");
 	scoreElement.css({
 		
 
@@ -242,7 +275,7 @@ function displayScore(){
 
 return {
 
-	init:init,
+	init:init
 
 }
 
